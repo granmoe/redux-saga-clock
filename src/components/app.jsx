@@ -7,6 +7,8 @@ export default class AuthApp extends React.Component {
   shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate
 
   render () {
-    return <div className="app">Yo!</div>
+    return (
+      <div className="app">Yo!</div>
+    )
   }
 }
