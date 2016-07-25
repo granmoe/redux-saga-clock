@@ -6,5 +6,6 @@ dist/**
 .#*
 *.org
 .tern-port
+TODO
 
 coverage/
