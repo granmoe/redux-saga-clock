@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { Router, hashHistory } from 'react-router'
+import { Router, browserHistory } from 'react-router'
 import routes from './routes'
 
 import DevTools from 'components/devtools.jsx'
@@ -18,7 +18,7 @@ const store = configureStore()
 ReactDOM.render(
   <Provider store={ store }>
     <div>
-      <Router history={hashHistory}>
+      <Router history={ browserHistory }>
         { routes(store) }
       </Router>
       { __DEVELOPMENT__ && !window.devToolsExtension ? <DevTools /> : null }
