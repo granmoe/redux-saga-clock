@@ -1,6 +1,6 @@
 /* global module, __dirname */
 
-// need to put this in a package json as a command:
+// need to put this in package.json as a command:
 // ./node_modules/webpack/bin/webpack.js
 
 const Webpack = require('webpack')
