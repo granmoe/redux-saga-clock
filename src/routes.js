@@ -1,10 +1,11 @@
 import React from 'react'
-import { IndexRoute, Route } from 'react-router'
+// import { IndexRoute, Route } from 'react-router'
+import { Route } from 'react-router'
 import App from 'components/app'
 
 export default (store) => {
   return (
-    <Route path="/" component={App}>
+    <Route path="/" component={ App }>
     </Route>
   )
 }
