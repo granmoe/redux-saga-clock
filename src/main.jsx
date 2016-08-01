@@ -12,7 +12,7 @@ const __DEVELOPMENT__ = process.env.NODE_ENV === 'development'
 
 const store = configureStore()
 
-// Any actions that should fire on page load
+// Any actions that should fire on page load...can this be expressed with generators?
 // store.dispatch(actions.action(data))
 
 ReactDOM.render(

@@ -20,6 +20,7 @@
         "comma-dangle": 0,
         "no-console": 1,
         "operator-linebreak": 0,
+        "generator-star-spacing": ["error", {"before": false, "after": true}],
         "quote-props": [2, "as-needed", {
             "unnecessary": false
         }],

@@ -9,8 +9,8 @@ import DevTools from 'components/devtools.jsx'
 
 const __DEVELOPMENT__ = process.env.NODE_ENV === 'development'
 
-export default function buildEnhancers () {
-  const middleware = [routerMiddleware(hashHistory)]
+export default function buildEnhancers (sagaMiddleware) {
+  const middleware = [routerMiddleware(hashHistory), sagaMiddleware]
   let enhancers
 
   if (__DEVELOPMENT__) {

@@ -1,10 +1,18 @@
 import { createStore } from 'redux'
-import rootReducer from 'ducks'
 import enhancers from 'middleware'
+import rootReducer from 'ducks'
+import createSagaMiddleware from 'redux-saga'
+import sagas from '../ducks/sagas'
 
 export default function () {
-  return createStore(
+  const sagaMiddleware = createSagaMiddleware()
+
+  const store = createStore(
     rootReducer,
-    enhancers()
+    enhancers(sagaMiddleware)
   )
+
+  sagaMiddleware.run(sagas)
+
+  return store
 }
