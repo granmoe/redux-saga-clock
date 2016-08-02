@@ -7,13 +7,14 @@ import { persistState } from 'redux-devtools'
 
 import DevTools from 'components/devtools.jsx'
 
-const __DEVELOPMENT__ = process.env.NODE_ENV === 'development'
+// const __DEVELOPMENT__ = process.env.NODE_ENV === 'development'
 
 export default function buildEnhancers (sagaMiddleware) {
   const middleware = [routerMiddleware(hashHistory), sagaMiddleware]
   let enhancers
 
-  if (__DEVELOPMENT__) {
+  // if (__DEVELOPMENT__) {
+  if (true) {
     middleware.push(createLogger({
       collapsed: true,
       stateTransformer (state) {

@@ -1,22 +1,28 @@
-import user from './user'
-import initialState from 'store/initial-state'
+import Immutable from 'immutable'
+
+import user, { initialState as userInitialState } from './user'
+import auth, { initialState as authInitialState } from './auth'
 
 const reducers = {
-  user
+  user,
+  auth
 }
 
-export default function (currentState = initialState, action) {
-  let nextState = currentState
+const initialState = Immutable.Map(
+  userInitialState,
+  authInitialState
+)
 
+export default function (currentState = initialState, action) {
   Object.keys(reducers).forEach(reducerName => {
-    const reducedState = reducers[reducerName](nextState.get(reducerName), action)
+    const reducedState = reducers[reducerName](currentState.get(reducerName), action)
 
     if (typeof reducedState === 'undefined') {
       throw new Error(`Reducer "${reducerName}" returned undefined when handling "${action.type}" action. To ignore an action, you must explicitly return the previous state.`)
     }
 
-    nextState = nextState.set(reducerName, reducedState)
+    currentState = currentState.set(reducerName, reducedState)
   })
 
-  return nextState
+  return currentState
 }
