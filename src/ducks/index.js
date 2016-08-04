@@ -8,10 +8,7 @@ const reducers = {
   auth
 }
 
-const initialState = Immutable.Map(
-  userInitialState,
-  authInitialState
-)
+const initialState = Immutable.Map(userInitialState, authInitialState)
 
 export default function (currentState = initialState, action) {
   Object.keys(reducers).forEach(reducerName => {

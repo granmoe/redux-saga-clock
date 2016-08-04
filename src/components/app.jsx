@@ -12,14 +12,16 @@ class AuthApp extends React.Component {
   render () {
     return (
       <div>
-        <div className="app">Yo!</div>
         <button onClick={ () => this.props.actions.callIncrementAsync() }>
-          Click Me
+          Increment Async
         </button>
+        <p>Counter: { this.props.counter }</p>
       </div>
     )
   }
 }
+
+const mapStateToProps = state => ({ counter: state.getIn(['auth', 'counter']) })
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -27,4 +29,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(AuthApp)
+export default connect(mapStateToProps, mapDispatchToProps)(AuthApp)

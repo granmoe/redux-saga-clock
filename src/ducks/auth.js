@@ -2,15 +2,14 @@ import Immutable from 'immutable'
 
 const SOME_ACTION = 'some-action'
 
-export const initialState = Immutable.fromJS({}) // nothing to see here...yet
+export const initialState = Immutable.fromJS({ counter: 0 })
 
 export default function reducer (currentState = initialState, action) {
   switch (action.type) {
     case SOME_ACTION:
       return currentState.set('someProperty', action.data)
     case 'INCREMENT_ASYNC':
-console.log(currentState.toJS())
-      return currentState.set('yo', currentState.get('yo', 0) + 1)
+      return currentState.set('counter', currentState.get('counter') + 1)
     default:
       return currentState
   }

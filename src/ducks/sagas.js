@@ -1,21 +1,25 @@
-import { delay, takeEvery } from 'redux-saga'
-import { put, call } from 'redux-saga/effects'
-// import all saga actions from various ducks, then re-export below
+import { delay } from 'redux-saga'
+import { put, call, take } from 'redux-saga/effects'
 
-// watcher
-export function* watchIncrementAsync () {
-  yield* takeEvery('CALL_INCREMENT_ASYNC', incrementAsync)
-}
-
-// worker
 export function* incrementAsync () {
-  yield call(delay, 2000)
-  yield put({ type: 'INCREMENT_ASYNC' })
+  while (yield take('CALL_INCREMENT_ASYNC')) {
+    yield call(delay, 2000)
+    yield put({ type: 'INCREMENT_ASYNC' })
+  }
 }
 
-// single entry point to start all Sagas at once
+// THUNK VERSION
+// export const incrementAsync () {
+//   fetch(stuff)
+//     .then(res => res.JSONorSomething)
+//     .then(actualStuffWeCareAbout => {
+//       dispatch(someAction(actualStuffWeCareAbout))
+//     })
+// }
+
 export default function* rootSaga () {
-  yield [
-    watchIncrementAsync()
-  ]
+  // could import arrays of generators from various ducks, then yield gens.map(call) like below
+  const generators = [incrementAsync]
+
+  yield generators.map(call)
 }
