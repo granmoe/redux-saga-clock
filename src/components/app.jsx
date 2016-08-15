@@ -1,9 +1,11 @@
 import React from 'react'
-import { bindActionCreators } from 'redux'
+// import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 
-import { callIncrementAsync } from '../ducks/auth'
+import LoginForm from './login-form.jsx'
+import UserHome from './user-home.jsx'
+
 import './app.less'
 
 class AuthApp extends React.Component {
@@ -12,21 +14,15 @@ class AuthApp extends React.Component {
   render () {
     return (
       <div>
-        <button onClick={ () => this.props.actions.callIncrementAsync() }>
-          Increment Async
-        </button>
-        <p>Counter: { this.props.counter }</p>
+        app component
+        { this.props.isLoggedIn ? (
+          <UserHome />
+        ) : (
+          <LoginForm />
+        ) }
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({ counter: state.getIn(['auth', 'counter']) })
-
-const mapDispatchToProps = dispatch => {
-  return {
-    actions: bindActionCreators({ callIncrementAsync }, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AuthApp)
+export default connect(state => ({ isLoggedIn: state.isLoggedIn }))(AuthApp)
