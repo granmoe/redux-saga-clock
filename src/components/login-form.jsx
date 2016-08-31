@@ -9,26 +9,35 @@ import './login-form.less'
 
 export default class LoginForm extends React.Component {
   shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate
-  state = { username: '', password: '' }
+  state = { email: '', password: '' }
 
   render () {
     const { loginError, attemptLogin } = this.props
-    const { username, password } = this.state
+    const { email, password } = this.state
+    const maskedPassword = password.replace(/./g, '•')
 
     return (
       <div className="login-form">
         { loginError && <LoginError error={ loginError } /> }
-        <input className="login-form__username" value={ username }
-          onChange={ (e) => this.setState({ username: e.target.value }) }
+        <input className="login-form__email" value={ email }
+          onChange={ e => this.setState({ email: e.target.value }) }
         />
-        <input className="login-form__password" value={ password }
-          onChange={ (e) => this.setState({ password: e.target.value }) }
+        <input className="login-form__password" value={ maskedPassword }
+          onChange={ this.handlePasswordChange }
         />
-        <button className="login-form__submit-btn" onClick={ () => attemptLogin({ username, password }) }>
+        <button className="login-form__submit-btn" onClick={ () => attemptLogin({ email, password }) }>
           Login
         </button>
       </div>
     )
+  }
+
+  handlePasswordChange = e => {
+    let newValue = e.target.value
+    let oldValue = this.state.password
+    let password = oldValue.slice(0, newValue.length) + newValue.slice(oldValue.length, newValue.length)
+
+    this.setState({ password })
   }
 }
 

@@ -3,18 +3,19 @@ const Api = 'just a placeholder for now'
 
 const ATTEMPT_LOGIN = 'ATTEMPT_LOGIN'
 
-export function attemptLogin ({ username, password }) {
+export function attemptLogin ({ email, password }) {
   return {
     type: ATTEMPT_LOGIN,
-    username,
+    email,
     password
   }
 }
 
 export function* loginFlow () {
   while (true) {
-    const { username, password } = yield take(ATTEMPT_LOGIN)
-    const task = yield fork(authorize, username, password)
+    const { email, password } = yield take(ATTEMPT_LOGIN)
+    // yield* call(ensureFirebaseConnection)
+    const task = yield fork(authorize, email, password)
     const action = yield take(['LOGOUT', 'LOGIN_ERROR']) // or INVALIDATE_AUTH
     if (action.type === 'LOGOUT') { yield cancel(task) }
     yield call(Api.clearItem, 'token')
