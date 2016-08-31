@@ -5,10 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "lint": "./node_modules/eslint/bin/eslint.js src --ext js --ext jsx || exit 0",
-    "proxy": "better-npm-run proxy",
-    "start": "better-npm-run start",
-    "test": "better-npm-run test",
-    "test-run": "better-npm-run test"
+    "start": "better-npm-run start"
   },
   "betterScripts": {
     "start": {

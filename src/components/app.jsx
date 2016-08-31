@@ -13,8 +13,8 @@ class AuthApp extends React.Component {
 
   render () {
     return (
-      <div>
-        app component
+      <div className="app">
+      Saga async flow example
         { this.props.isLoggedIn ? (
           <UserHome />
         ) : (

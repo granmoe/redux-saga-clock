@@ -1,26 +1,30 @@
 import { take, call, put, cancelled, fork, cancel } from 'redux-saga/effects'
 const Api = 'just a placeholder for now'
 
-// export function* incrementAsync () {
-//   while (yield take('CALL_INCREMENT_ASYNC')) {
-//     yield call(delay, 1000)
-//     yield put({ type: 'INCREMENT_ASYNC' })
-//   }
-// }
-//
+const ATTEMPT_LOGIN = 'ATTEMPT_LOGIN'
+
+export function attemptLogin ({ username, password }) {
+  return {
+    type: ATTEMPT_LOGIN,
+    username,
+    password
+  }
+}
+
 export function* loginFlow () {
   while (true) {
-    const { user, password } = yield take('LOGIN_REQUEST')
-    const task = yield fork(authorize, user, password)
-    const action = yield take(['LOGOUT', 'LOGIN_ERROR'])
+    const { username, password } = yield take(ATTEMPT_LOGIN)
+    const task = yield fork(authorize, username, password)
+    const action = yield take(['LOGOUT', 'LOGIN_ERROR']) // or INVALIDATE_AUTH
     if (action.type === 'LOGOUT') { yield cancel(task) }
     yield call(Api.clearItem, 'token')
   }
 }
 
-export function* authorize (user, password) {
+export function* authorize (username, password) {
   try {
-    const token = yield call(Api.authorize, user, password)
+    // const token = yield call(firebase.authorize, username, password)
+    const token = 'asdf'
     yield put({ type: 'LOGIN_SUCCESS', token })
     return token
   } catch (error) {
@@ -40,4 +44,13 @@ export default function* rootSaga () {
   const generators = [loginFlow]
 
   yield generators.map(call)
+  // or could use fork effect on generator array?
 }
+
+// export function* incrementAsync () {
+//   while (yield take('CALL_INCREMENT_ASYNC')) {
+//     yield call(delay, 1000)
+//     yield put({ type: 'INCREMENT_ASYNC' })
+//   }
+// }
+//

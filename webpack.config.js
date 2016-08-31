@@ -5,9 +5,6 @@
 
 const Webpack = require('webpack')
 const path = require('path')
-const autoprefixer = require('autoprefixer')
-
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 require('file-loader')
 
@@ -30,7 +27,6 @@ module.exports = { // eslint-disable-line
   },
   plugins: [
     definePlugin,
-    new ExtractTextPlugin('[name].styles.css')
   ],
   resolve: {
     modulesDirectories: [
@@ -46,12 +42,10 @@ module.exports = { // eslint-disable-line
     loaders: [
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        loaders: ['style', 'css']
       }, {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract(
-          'css?sourceMap!less?sourceMap'
-        )
+        loaders: ['style', 'css', 'less']
       }, {
         test: /\.jsx?/,
         exclude: /node_modules/,
@@ -82,8 +76,5 @@ module.exports = { // eslint-disable-line
         loader: 'file'
       }
     ]
-  },
-  postcss: function () {
-    return [ autoprefixer ]
   }
 }
