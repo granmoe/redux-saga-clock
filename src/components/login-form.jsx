@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 
-import { attemptLogin } from 'ducks/sagas'
+import { attemptLogin } from 'ducks/auth'
 import LoginError from './login-error.jsx'
 import './login-form.less'
 

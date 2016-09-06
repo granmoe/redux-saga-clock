@@ -1,31 +1,26 @@
 import { take, call, put, cancelled, fork, cancel } from 'redux-saga/effects'
-const Api = 'just a placeholder for now'
+import { HTTP } from 'utils/http'
+import CONSTANTS from 'constants'
 
-const ATTEMPT_LOGIN = 'ATTEMPT_LOGIN'
-
-export function attemptLogin ({ email, password }) {
-  return {
-    type: ATTEMPT_LOGIN,
-    email,
-    password
-  }
-}
+const ATTEMPT_LOGIN = 'ATTEMPT_LOGIN' // TODO: Pull action type constants from common file and avoid namespacing problem somehow
 
 export function* loginFlow () {
   while (true) {
     const { email, password } = yield take(ATTEMPT_LOGIN)
-    // yield* call(ensureFirebaseConnection)
     const task = yield fork(authorize, email, password)
-    const action = yield take(['LOGOUT', 'LOGIN_ERROR']) // or INVALIDATE_AUTH
-    if (action.type === 'LOGOUT') { yield cancel(task) }
-    yield call(Api.clearItem, 'token')
+    const action = yield take(['LOGOUT', 'LOGIN_ERROR'])
+
+    if (action.type === 'LOGOUT') {
+      yield cancel(task)
+      // yield call(Api.clearItem, 'token')
+      // reset auth data in app state
+    }
   }
 }
 
-export function* authorize (username, password) {
+export function* authorize (username, password) { // SUBORDINATE of loginFlow
   try {
-    // const token = yield call(firebase.authorize, username, password)
-    const token = 'asdf'
+    const token = yield call(requestToken, username, password)
     yield put({ type: 'LOGIN_SUCCESS', token })
     return token
   } catch (error) {
@@ -37,6 +32,14 @@ export function* authorize (username, password) {
       // more simply, make the reducer clear the isLoginPending on a LOGOUT action
     }
   }
+}
+
+export function requestToken (username, password) { // SUBORDINATE of authorize
+  const contentHeader = { 'Content-Type': 'application/x-www-form-urlencoded' }
+  const data = { username, password, appName: CONSTANTS.APP_NAME, grant_type: 'password' }
+
+  HTTP.post(`${CONSTANTS.API_URL}/token`, data, contentHeader)
+    .then(result => result)
 }
 
 export default function* rootSaga () {
