@@ -1,5 +1,4 @@
 import React from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 
@@ -14,7 +13,6 @@ export default class LoginForm extends React.Component {
   render () {
     const { loginError, attemptLogin } = this.props
     const { email, password } = this.state
-    const maskedPassword = password.replace(/./g, '•')
 
     return (
       <div className="login-form">
@@ -22,23 +20,15 @@ export default class LoginForm extends React.Component {
         <input className="login-form__email" value={ email }
           onChange={ e => this.setState({ email: e.target.value }) }
         />
-        <input className="login-form__password" value={ maskedPassword }
-          onChange={ this.handlePasswordChange }
+        <input className="login-form__password" value={ password } type="password"
+          onChange={ e => this.setState({ password: e.target.value }) }
         />
-        <button className="login-form__submit-btn" onClick={ () => attemptLogin({ email, password }) }>
+        <button className="login-form__submit-btn" onClick={ () => attemptLogin({ email, password: this.refs.password.state.value }) }>
           Login
         </button>
       </div>
     )
   }
-
-  handlePasswordChange = e => {
-    let newValue = e.target.value
-    let oldValue = this.state.password
-    let password = oldValue.slice(0, newValue.length) + newValue.slice(oldValue.length, newValue.length)
-
-    this.setState({ password })
-  }
 }
 
-export default connect(state => ({ loginError: state.loginError }), dispatch => bindActionCreators({ attemptLogin }, dispatch))(LoginForm)
+export default connect(state => ({ loginError: state.loginError }), { attemptLogin })(LoginForm)

@@ -27,9 +27,7 @@ export function* authorize (username, password) { // SUBORDINATE of loginFlow
     yield put({ type: 'LOGIN_ERROR', error })
   } finally {
     if (yield cancelled()) {
-      // ... put special cancellation handling code here
-      // dispatch a dedicated action RESET_LOGIN_PENDING
-      // more simply, make the reducer clear the isLoginPending on a LOGOUT action
+      // ... put special cancellation handling code here "dispatch a dedicated action RESET_LOGIN_PENDING, more simply, make the reducer clear the isLoginPending on a LOGOUT action"
     }
   }
 }
@@ -38,8 +36,8 @@ export function requestToken (username, password) { // SUBORDINATE of authorize
   const contentHeader = { 'Content-Type': 'application/x-www-form-urlencoded' }
   const data = { username, password, appName: CONSTANTS.APP_NAME, grant_type: 'password' }
 
-  HTTP.post(`${CONSTANTS.API_URL}/token`, data, contentHeader)
-    .then(result => result)
+  return HTTP.post(`${CONSTANTS.API_URL}/token`, data, contentHeader)
+    .then(res => res, res => { throw res })
 }
 
 export default function* rootSaga () {
