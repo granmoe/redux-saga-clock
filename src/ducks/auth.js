@@ -1,11 +1,27 @@
 import Immutable from 'immutable'
 
-const ATTEMPT_LOGIN = 'ATTEMPT_LOGIN' // TODO: Pull action type constants from common file and avoid namespacing problem somehow
+import { ATTEMPT_LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from 'constants'
 
-export const initialState = Immutable.fromJS({ token: null })
+export const initialState = Immutable.fromJS({
+  access_token: null,
+  appName: null,
+  expires_in: null,
+  firstName: null,
+  fullName: null,
+  lastName: null,
+  regId: null,
+  role: null,
+  token_type: null,
+  userId: null,
+  username: null
+})
 
 export default function reducer (currentState = initialState, action) {
   switch (action.type) {
+    case LOGIN_SUCCESS:
+      return Immutable.fromJS(action.userData)
+    case LOGIN_ERROR:
+      return currentState.set('errorMessage', action.errorMessage)
     default:
       return currentState
   }

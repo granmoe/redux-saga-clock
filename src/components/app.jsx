@@ -1,5 +1,4 @@
 import React from 'react'
-// import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 
@@ -14,7 +13,8 @@ class AuthApp extends React.Component {
   render () {
     return (
       <div className="app">
-      Saga async flow example
+        Saga async flow example
+
         { this.props.isLoggedIn ? (
           <UserHome />
         ) : (

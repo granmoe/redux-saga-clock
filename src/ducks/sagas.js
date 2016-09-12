@@ -1,8 +1,7 @@
 import { take, call, put, cancelled, fork, cancel } from 'redux-saga/effects'
-import { HTTP } from 'utils/http'
-import CONSTANTS from 'constants'
 
-const ATTEMPT_LOGIN = 'ATTEMPT_LOGIN' // TODO: Pull action type constants from common file and avoid namespacing problem somehow
+import { HTTP } from 'utils/http'
+import CONSTANTS, { ATTEMPT_LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from 'constants'
 
 export function* loginFlow () {
   while (true) {
@@ -12,23 +11,21 @@ export function* loginFlow () {
 
     if (action.type === 'LOGOUT') {
       yield cancel(task)
-      // yield call(Api.clearItem, 'token')
-      // reset auth data in app state
+      // yield call(Api.clearItem, 'token') actually logout with backend
     }
   }
 }
 
 export function* authorize (username, password) { // SUBORDINATE of loginFlow
   try {
-    const token = yield call(requestToken, username, password)
-    yield put({ type: 'LOGIN_SUCCESS', token })
-    return token
+    const userData = yield call(requestToken, username, password)
+    yield put({ type: LOGIN_SUCCESS, userData })
   } catch (error) {
-    yield put({ type: 'LOGIN_ERROR', error })
+    const errorMessage = error && error.body && error.body.error_description || CONSTANTS.UNKNOWN_ERROR_MESSAGE
+    yield put({ type: LOGIN_ERROR, errorMessage })
   } finally {
-    if (yield cancelled()) {
-      // ... put special cancellation handling code here "dispatch a dedicated action RESET_LOGIN_PENDING, more simply, make the reducer clear the isLoginPending on a LOGOUT action"
-    }
+    // ... put special cancellation handling code here "dispatch a dedicated action RESET_LOGIN_PENDING, more simply, make the reducer clear the isLoginPending on a LOGOUT action"
+    if (yield cancelled()) {}
   }
 }
 

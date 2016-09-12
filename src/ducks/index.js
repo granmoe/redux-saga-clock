@@ -1,14 +1,12 @@
 import Immutable from 'immutable'
 
-import user, { initialState as userInitialState } from './user'
 import auth, { initialState as authInitialState } from './auth'
 
 const reducers = {
-  user,
   auth
 }
 
-const initialState = Immutable.Map(userInitialState, authInitialState)
+const initialState = Immutable.fromJS({ auth: authInitialState })
 
 export default function (currentState = initialState, action) {
   Object.keys(reducers).forEach(reducerName => {

@@ -1,13 +1,13 @@
 import React from 'react'
 
-// import './login-error.less'
+import './login-error.less'
 
 export default class LoginError extends React.Component {
   render () {
-    const { error } = this.props
+    const { errorMessage } = this.props
 
     return (
-      <div>login error{error}</div>
+      <div className="login-error">{ errorMessage }</div>
     )
   }
 }

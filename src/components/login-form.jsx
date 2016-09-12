@@ -11,19 +11,20 @@ export default class LoginForm extends React.Component {
   state = { email: '', password: '' }
 
   render () {
-    const { loginError, attemptLogin } = this.props
+    const { errorMessage, attemptLogin } = this.props
     const { email, password } = this.state
 
     return (
       <div className="login-form">
-        { loginError && <LoginError error={ loginError } /> }
+        { errorMessage && <LoginError errorMessage={ errorMessage } /> }
+
         <input className="login-form__email" value={ email }
           onChange={ e => this.setState({ email: e.target.value }) }
         />
         <input className="login-form__password" value={ password } type="password"
           onChange={ e => this.setState({ password: e.target.value }) }
         />
-        <button className="login-form__submit-btn" onClick={ () => attemptLogin({ email, password: this.refs.password.state.value }) }>
+        <button className="login-form__submit-btn" onClick={ () => attemptLogin({ email, password }) }>
           Login
         </button>
       </div>
@@ -31,4 +32,4 @@ export default class LoginForm extends React.Component {
   }
 }
 
-export default connect(state => ({ loginError: state.loginError }), { attemptLogin })(LoginForm)
+export default connect(state => ({ errorMessage: state.getIn(['auth', 'errorMessage']) }), { attemptLogin })(LoginForm)
