@@ -33,19 +33,25 @@ export default function reducer (currentState = initialState, action) {
         milliseconds: 0
       }
     case 'increment-minutes':
+      let minutes = currentState.minutes + 1
+      if (minutes > 59) { minutes = 0 }
       return {
         ...currentState,
-        minutes: currentState.minutes + 1 // TODO: Put logic to set back to 0 here instead of in saga
+        minutes
       }
     case 'increment-seconds':
+      let seconds = currentState.seconds + 1
+      if (seconds > 59) { seconds = 0 }
       return {
         ...currentState,
-        seconds: currentState.seconds + 1
+        seconds
       }
     case 'increment-milliseconds':
+      let milliseconds = currentState.milliseconds + 100
+      if (milliseconds > 999) { milliseconds = 0 }
       return {
         ...currentState,
-        milliseconds: currentState.milliseconds + 100
+        milliseconds
       }
     default:
       return currentState

@@ -10,7 +10,7 @@ class ClockApp extends React.Component {
 
   render () {
     const { minutes, seconds, milliseconds, paused, startClock, pauseClock } = this.props
-console.log(seconds)
+
     return (
       <div className="app">
         Redux Saga Clock
