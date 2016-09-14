@@ -1,23 +1,66 @@
-import Immutable from 'immutable'
-
-import auth, { initialState as authInitialState } from './auth'
-
-const reducers = {
-  auth
+export const initialState = {
+  isPaused: true,
+  minutes: 0,
+  seconds: 0,
+  milliseconds: 0
 }
 
-const initialState = Immutable.fromJS({ auth: authInitialState })
-
-export default function (currentState = initialState, action) {
-  Object.keys(reducers).forEach(reducerName => {
-    const reducedState = reducers[reducerName](currentState.get(reducerName), action)
-
-    if (typeof reducedState === 'undefined') {
-      throw new Error(`Reducer "${reducerName}" returned undefined when handling "${action.type}" action. To ignore an action, you must explicitly return the previous state.`)
-    }
-
-    currentState = currentState.set(reducerName, reducedState)
-  })
-
-  return currentState
+export default function reducer (currentState = initialState, action) {
+  switch (action.type) {
+    case 'start-clock':
+      return {
+        ...currentState,
+        isPaused: false
+      }
+    case 'pause-clock':
+      return {
+        ...currentState,
+        isPaused: true
+      }
+    case 'reset-minutes':
+      return {
+        ...currentState,
+        minutes: 0
+      }
+    case 'reset-seconds':
+      return {
+        ...currentState,
+        seconds: 0
+      }
+    case 'reset-milliseconds':
+      return {
+        ...currentState,
+        milliseconds: 0
+      }
+    case 'increment-minutes':
+      return {
+        ...currentState,
+        minutes: currentState.minutes + 1 // TODO: Put logic to set back to 0 here instead of in saga
+      }
+    case 'increment-seconds':
+      return {
+        ...currentState,
+        seconds: currentState.seconds + 1
+      }
+    case 'increment-milliseconds':
+      return {
+        ...currentState,
+        milliseconds: currentState.milliseconds + 100
+      }
+    default:
+      return currentState
+  }
 }
+
+// need these to be separate so they can be imported in saga
+export const startClockAction = {
+  type: 'start-clock'
+}
+
+export const pauseClockAction = {
+  type: 'pause-clock'
+}
+
+export const startClock = () => startClockAction
+
+export const pauseClock = () => pauseClockAction

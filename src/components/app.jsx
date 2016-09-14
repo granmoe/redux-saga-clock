@@ -2,27 +2,37 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 
-import LoginForm from './login-form.jsx'
-import UserHome from './user-home.jsx'
-
+import { startClock, pauseClock } from 'ducks'
 import './app.less'
 
-class AuthApp extends React.Component {
+class ClockApp extends React.Component {
   shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate
 
   render () {
+    const { minutes, seconds, milliseconds, paused, startClock, pauseClock } = this.props
+console.log(seconds)
     return (
       <div className="app">
-        Saga async flow example
-
-        { this.props.isLoggedIn ? (
-          <UserHome />
-        ) : (
-          <LoginForm />
-        ) }
+        Redux Saga Clock
+        <ul>
+          <li>Minutes: { minutes }</li>
+          <li>Seconds: { seconds }</li>
+          <li>Milliseconds { milliseconds }</li>
+        </ul>
+        <button className="app__btn" onClick={ () => paused ? startClock() : pauseClock() }>
+          { paused ? 'Start Clock' : 'Pause Clock' }
+        </button>
       </div>
     )
   }
 }
 
-export default connect(state => ({ isLoggedIn: state.isLoggedIn }))(AuthApp)
+export default connect(state => ({
+  minutes: state.minutes,
+  seconds: state.seconds,
+  milliseconds: state.milliseconds,
+  paused: state.isPaused
+}), ({
+  startClock,
+  pauseClock
+}))(ClockApp)

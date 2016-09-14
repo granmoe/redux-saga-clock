@@ -1,55 +1,34 @@
-import { take, call, put, cancelled, fork, cancel } from 'redux-saga/effects'
-
-import { HTTP } from 'utils/http'
-import CONSTANTS, { ATTEMPT_LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from 'constants'
-
-export function* loginFlow () {
-  while (true) {
-    const { email, password } = yield take(ATTEMPT_LOGIN)
-    const task = yield fork(authorize, email, password)
-    const action = yield take(['LOGOUT', 'LOGIN_ERROR'])
-
-    if (action.type === 'LOGOUT') {
-      yield cancel(task)
-      // yield call(Api.clearItem, 'token') actually logout with backend
-    }
-  }
-}
-
-export function* authorize (username, password) { // SUBORDINATE of loginFlow
-  try {
-    const userData = yield call(requestToken, username, password)
-    yield put({ type: LOGIN_SUCCESS, userData })
-  } catch (error) {
-    const errorMessage = error && error.body && error.body.error_description || CONSTANTS.UNKNOWN_ERROR_MESSAGE
-    yield put({ type: LOGIN_ERROR, errorMessage })
-  } finally {
-    // ... put special cancellation handling code here "dispatch a dedicated action RESET_LOGIN_PENDING, more simply, make the reducer clear the isLoginPending on a LOGOUT action"
-    if (yield cancelled()) {}
-  }
-}
-
-export function requestToken (username, password) { // SUBORDINATE of authorize
-  const contentHeader = { 'Content-Type': 'application/x-www-form-urlencoded' }
-  const data = { username, password, appName: CONSTANTS.APP_NAME, grant_type: 'password' }
-
-  return HTTP.post(`${CONSTANTS.API_URL}/token`, data, contentHeader)
-    .then(res => res, res => { throw res })
-}
+import { delay } from 'redux-saga'
+import { call, cancel, fork, put, select, take } from 'redux-saga/effects'
 
 export default function* rootSaga () {
-  // could do...
-  // const generators = [...someDuckGens, ...someOtherDuckGens, ...yetAnotherDuckGens]
-  const generators = [loginFlow]
-
-  yield generators.map(call)
-  // or could use fork effect on generator array?
+  while (yield take('start-clock')) {
+    const clock = yield fork(minutes)
+    yield take('pause-clock')
+    yield cancel(clock)
+  }
 }
 
-// export function* incrementAsync () {
-//   while (yield take('CALL_INCREMENT_ASYNC')) {
-//     yield call(delay, 1000)
-//     yield put({ type: 'INCREMENT_ASYNC' })
-//   }
-// }
-//
+function* minutes () {
+  let _minutes = yield select(state => state.minutes)
+  for (let minutes = _minutes; minutes < 60; minutes++) {
+    yield call(seconds)
+    yield put({ type: 'increment-minutes' })
+  }
+}
+
+function* seconds () {
+  let _seconds = yield select(state => state.seconds)
+  for (let seconds = _seconds; seconds < 60; seconds++) {
+    yield call(milliseconds)
+    yield put({ type: 'increment-seconds' })
+  }
+}
+
+function* milliseconds () {
+  let _milliseconds = yield select(state => state.milliseconds)
+  for (let milliseconds = _milliseconds; milliseconds < 1000; milliseconds = milliseconds + 100) {
+    yield call(delay, 100)
+    yield put({ type: 'increment-milliseconds' })
+  }
+}
