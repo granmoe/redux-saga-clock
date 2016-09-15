@@ -17,19 +17,11 @@ export default function reducer (currentState = initialState, action) {
         ...currentState,
         isPaused: true
       }
-    case 'reset-minutes':
+    case 'reset-clock':
       return {
         ...currentState,
-        minutes: 0
-      }
-    case 'reset-seconds':
-      return {
-        ...currentState,
-        seconds: 0
-      }
-    case 'reset-milliseconds':
-      return {
-        ...currentState,
+        minutes: 0,
+        seconds: 0,
         milliseconds: 0
       }
     case 'increment-minutes':

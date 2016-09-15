@@ -32,3 +32,6 @@ function* milliseconds () {
     yield put({ type: 'increment-milliseconds' })
   }
 }
+
+// TODO: Reset button
+// TODO: Design (like a cool nested set of clocks / pie charts...css transitions)

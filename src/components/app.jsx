@@ -22,6 +22,15 @@ class ClockApp extends React.Component {
         <button className="app__btn" onClick={ () => paused ? startClock() : pauseClock() }>
           { paused ? 'Start Clock' : 'Pause Clock' }
         </button>
+        <br />
+        <br />
+        { [...Array(milliseconds / 10)].map((val, idx) => <span key={ idx }>{ '.' }</span>) }
+        <br />
+        <br />
+        { [...Array(seconds)].map((val, idx) => <span key={ idx }>{ "-" }</span>) }
+        <br />
+        <br />
+        { [...Array(minutes)].map((val, idx) => <span key={ idx }>{ "=" }</span>) }
       </div>
     )
   }
