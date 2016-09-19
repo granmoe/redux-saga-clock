@@ -1,2 +1,2 @@
 # redux-saga-clock
-A demo that shows how nested generators work in redux saga.
+A dead-simple example that shows a simple generator pattern for process flow via redux saga.
