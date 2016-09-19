@@ -1,32 +1,22 @@
 {
-  "name": "firebase-auth-template",
+  "name": "redux-saga-clock",
   "version": "0.0.1",
   "description": "blah",
   "main": "webpack.config.js",
-  "scripts": {
-    "lint": "./node_modules/eslint/bin/eslint.js src --ext js --ext jsx || exit 0",
-    "start": "better-npm-run start"
-  },
-  "betterScripts": {
-    "start": {
-      "command": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js -d --progress --colors --content-base static/",
-      "env": {
-        "NODE_ENV": "development"
-      }
-    }
-  },
   "author": "Matt Granmoe",
   "license": "MIT",
-  "homepage": "https://github.com/granmoe/firebase-auth-template#readme",
+  "homepage": "https://github.com/granmoe/redux-saga-clock",
   "repository": {
     "type": "git",
-    "url": "git://github.com/granmoe/firebase-auth-template.git"
+    "url": "https://github.com/granmoe/redux-saga-clock.git"
   },
   "bugs": {
-    "url": "https://github.com/granmoe/firebase-auth-template/issues"
+    "url": "https://github.com/granmoe/redux-saga-clock/issues"
+  },
+  "scripts": {
+    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js -d --progress --colors --content-base static/"
   },
   "devDependencies": {
-    "autoprefixer": "^6.3.7",
     "babel-core": "^6.11.4",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.4",
@@ -36,49 +26,27 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-1": "^6.5.0",
     "babel-preset-stage-2": "^6.11.0",
-    "better-npm-run": "^0.0.10",
     "core-js": "^2.4.1",
-    "css-loader": "^0.23.1",
     "eslint": "^3.1.1",
     "eslint-config-standard": "^5.3.5",
     "eslint-plugin-promise": "^2.0.0",
     "eslint-plugin-react": "^5.2.2",
     "eslint-plugin-standard": "^2.0.0",
     "express": "^4.14.0",
-    "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "history": "^3.0.0",
     "istanbul-instrumenter-loader": "^0.2.0",
-    "json-loader": "^0.5.4",
-    "less": "^2.7.1",
-    "less-loader": "^2.2.3",
-    "lodash": "^4.14.0",
-    "postcss-loader": "^0.9.1",
     "react": "^15.2.1",
-    "react-addons-pure-render-mixin": "^15.2.1",
-    "react-bootstrap": "^0.30.0",
     "react-dom": "^15.2.1",
     "react-json-tree": "^0.10.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.6.0",
     "react-router-redux": "^4.0.5",
     "redux": "^3.5.2",
-    "redux-devtools": "^3.3.1",
-    "redux-devtools-dispatch": "^2.2.0",
-    "redux-devtools-dock-monitor": "^1.1.1",
-    "redux-devtools-inspector": "^0.7.1",
-    "redux-devtools-log-monitor": "^1.0.11",
-    "redux-devtools-multiple-monitors": "^1.0.1",
-    "redux-immutable": "^3.0.6",
-    "redux-logger": "^2.6.1",
-    "redux-router": "^2.1.1",
     "redux-saga": "^0.11.0",
-    "redux-thunk": "^2.1.0",
-    "style-loader": "^0.13.1",
     "superagent": "^2.2.0",
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
-    "webpack-dev-server": "^1.14.1",
-    "whatwg-fetch": "^1.0.0"
+    "webpack-dev-server": "^1.14.1"
   }
 }

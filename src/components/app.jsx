@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { startClock, pauseClock, resetClock } from 'ducks'
-import './app.less'
 
+// TODO: Continue pruning npm modules, check babelrc, flatten src so there are no folders?
 // TODO: Generate clock hand and background colors?
 // TODO: Generate clock hand values pseudo-randomly on mount
 // TODO: What to do with last hand?
