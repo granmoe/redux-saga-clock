@@ -3,15 +3,6 @@ import { connect } from 'react-redux'
 
 import { startClock, pauseClock, resetClock } from 'ducks'
 
-// TODO:
-// Make some cool effect happen when the clock is done...also demonstrates more complexity in the saga
-// Mousewheel speeds up / slows down the clock somehow
-// Maybe user has to fill up the clock before a countdown finishes?
-// Mobile version? Equivalent of hover?
-// Continue pruning npm modules, check babelrc, flatten src so there are no folders?
-// Generate clock hand and background colors?
-// Generate clock hand values pseudo-randomly on mount
-
 // const CLOCK_HANDS_IN_MS = [ 12800, 6400, 3200, 1600, 800, 400, 200, 100 ]
 const CLOCK_HANDS_IN_MS = [ 144000, 36000, 12000, 2000, 400, 100 ]
 const MAX_RADIUS = 40
