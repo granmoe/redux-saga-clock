@@ -9,7 +9,7 @@ export default function reducer (currentState = initialState, action) {
   switch (action.type) {
     case 'reset-clock':
       return {
-        ...currentState,
+        ...currentState, // maybe there will be other fields in the app state someday?
         milliseconds: 0
       }
     case 'increment-milliseconds':
@@ -25,9 +25,4 @@ export default function reducer (currentState = initialState, action) {
 
 export const startClock = () => ({ type: START_CLOCK })
 export const pauseClock = () => ({ type: PAUSE_CLOCK })
-
-export const resetClock = () => {
-  return {
-    type: 'reset-clock'
-  }
-}
+export const resetClock = () => ({ type: 'reset-clock' })

@@ -3,26 +3,23 @@ import { connect } from 'react-redux'
 
 import { startClock, pauseClock, resetClock } from 'ducks'
 
-// TODO: Continue pruning npm modules, check babelrc, flatten src so there are no folders?
-// TODO: Generate clock hand and background colors?
-// TODO: Generate clock hand values pseudo-randomly on mount
-// TODO: What to do with last hand?
+// TODO:
+// Make some cool effect happen when the clock is done...also demonstrates more complexity in the saga
+// Mousewheel speeds up / slows down the clock somehow
+// Maybe user has to fill up the clock before a countdown finishes?
+// Mobile version? Equivalent of hover?
+// Continue pruning npm modules, check babelrc, flatten src so there are no folders?
+// Generate clock hand and background colors?
+// Generate clock hand values pseudo-randomly on mount
 
-// BINARY
 // const CLOCK_HANDS_IN_MS = [ 12800, 6400, 3200, 1600, 800, 400, 200, 100 ]
-
-// TERNARY
-// const CLOCK_HANDS_IN_MS = [ 72600, 24300, 8100, 2700, 900, 300, 100 ]
-
-// mixed
 const CLOCK_HANDS_IN_MS = [ 144000, 36000, 12000, 2000, 400, 100 ]
-
 const MAX_RADIUS = 40
 
+// WTF is a clock?
 class ClockApp extends React.Component {
   render () {
     const { hands, startClock, pauseClock, resetClock, strokeWidth } = this.props
-
     return (
       <svg onMouseEnter={ () => startClock() } onMouseLeave={ () => pauseClock() }
         onClick={ () => resetClock() } className="clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
