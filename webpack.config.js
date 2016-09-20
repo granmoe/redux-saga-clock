@@ -2,8 +2,6 @@
 
 const path = require('path')
 
-require('file-loader')
-
 module.exports = { // eslint-disable-line
   devtool: 'eval-source-map',
   entry: {
