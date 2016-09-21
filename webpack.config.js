@@ -4,7 +4,6 @@ module.exports = { // eslint-disable-line
     main: './src/main.js'
   },
   output: {
-    path: './dist',
     filename: 'bundle.js'
   },
   resolve: {
