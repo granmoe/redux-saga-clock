@@ -1,5 +1,4 @@
 /* global module, __dirname */
-
 const path = require('path')
 
 module.exports = { // eslint-disable-line

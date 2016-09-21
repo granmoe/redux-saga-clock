@@ -1,7 +1,7 @@
 {
   "name": "redux-saga-clock",
-  "version": "0.0.2",
-  "description": "",
+  "version": "0.0.3",
+  "description": "A simple yet visually engaging demonstration of redux saga",
   "main": "webpack.config.js",
   "author": "Matt Granmoe",
   "license": "MIT",
