@@ -1,14 +1,11 @@
-/* global module, __dirname */
-const path = require('path')
-
 module.exports = { // eslint-disable-line
   devtool: 'eval-source-map',
   entry: {
     main: './src/main.js'
   },
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: '[name].bundle.js'
+    path: './dist',
+    filename: 'bundle.js'
   },
   resolve: {
     modulesDirectories: [
