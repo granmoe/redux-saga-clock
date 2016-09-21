@@ -14,7 +14,7 @@
     "url": "https://github.com/granmoe/redux-saga-clock/issues"
   },
   "scripts": {
-    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js -d --progress --colors --content-base static/"
+    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js -d --progress --colors"
   },
   "devDependencies": {
     "babel-core": "^6.14.0",
