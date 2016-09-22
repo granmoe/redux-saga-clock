@@ -1,7 +1,7 @@
 module.exports = { // eslint-disable-line
   devtool: 'eval-source-map',
   entry: {
-    main: './src/main.js'
+    main: './src/main.jsx'
   },
   output: {
     filename: 'bundle.js'
