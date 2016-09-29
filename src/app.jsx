@@ -9,8 +9,8 @@ class Clock extends React.Component {
     const { hands, startClock, rewindClock, resetClock, pauseClock } = this.props
 
     return (
-      <svg onMouseEnter={ () => startClock() } onMouseLeave={ () => rewindClock() } onDoubleClick={ () => resetClock() }
-        onClick={ () => pauseClock() } className="clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="500">
+      <svg onMouseEnter={ startClock } onMouseLeave={ rewindClock } onDoubleClick={ resetClock }
+        onClick={ pauseClock } className="clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="500">
         { hands.map((hand, index) => {
           const { radius, circumference, position, alpha } = hand
           return (
