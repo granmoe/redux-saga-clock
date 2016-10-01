@@ -1,8 +1,6 @@
 {
     "extends": "standard",
     "parser": "babel-eslint",
-    "globals": {
-    },
     "plugins": [
         "react"
     ],
@@ -42,13 +40,8 @@
         "react/wrap-multilines": 1,
         "object-curly-spacing": ["error", "always"]
     },
-    "globals": {
-      "process": true
-    },
     "env": {
-        "amd": true,
         "browser": true,
-        "es6": true,
-        "node": false
+        "es6": true
     }
 }
