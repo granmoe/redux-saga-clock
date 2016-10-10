@@ -6,17 +6,17 @@ export const initialState = {
 
 export default function reducer (currentState = initialState, action) {
   switch (action.type) {
-    case 'reset-clock':
+    case RESET_CLOCK:
       return {
         ...currentState,
         milliseconds: 0
       }
-    case 'increment-milliseconds':
+    case INCREMENT_MILLISECONDS:
       return {
         ...currentState,
         milliseconds: currentState.milliseconds + MINIMUM_MS
       }
-    case 'decrement-milliseconds':
+    case DECREMENT_MILLISECONDS:
       if (!currentState.milliseconds) { return currentState }
 
       return {
@@ -28,11 +28,10 @@ export default function reducer (currentState = initialState, action) {
   }
 }
 
-export const START_CLOCK = 'start-clock'
-export const PAUSE_CLOCK = 'pause-clock'
-export const REWIND_CLOCK = 'rewind-clock'
+const RESET_CLOCK = 'reset-clock'
+const INCREMENT_MILLISECONDS = 'increment-milliseconds'
+const DECREMENT_MILLISECONDS = 'decrement-milliseconds'
 
-export const startClock = () => ({ type: START_CLOCK })
-export const pauseClock = () => ({ type: PAUSE_CLOCK })
-export const rewindClock = () => ({ type: REWIND_CLOCK })
-export const resetClock = () => ({ type: 'reset-clock' })
+export const resetClock = () => ({ type: RESET_CLOCK })
+export const incrementMilliseconds = () => ({ type: INCREMENT_MILLISECONDS })
+export const decrementMilliseconds = () => ({ type: DECREMENT_MILLISECONDS })

@@ -1,7 +1,15 @@
 import { delay, takeLatest } from 'redux-saga'
 import { call, put } from 'redux-saga/effects'
-import { START_CLOCK, PAUSE_CLOCK, REWIND_CLOCK } from 'duck'
 import { MINIMUM_MS } from 'config'
+import { incrementMilliseconds, decrementMilliseconds } from 'duck'
+
+const START_CLOCK = 'start-clock'
+const PAUSE_CLOCK = 'pause-clock'
+const REWIND_CLOCK = 'rewind-clock'
+
+export const startClock = () => ({ type: START_CLOCK })
+export const pauseClock = () => ({ type: PAUSE_CLOCK })
+export const rewindClock = () => ({ type: REWIND_CLOCK })
 
 export default function* rootSaga () {
   yield takeLatest([START_CLOCK, PAUSE_CLOCK, REWIND_CLOCK], handleClockAction)
@@ -18,9 +26,9 @@ function* runClock (forward = true) {
     yield call(delay, MINIMUM_MS)
 
     if (forward) {
-      yield put({ type: 'increment-milliseconds' })
+      yield put(incrementMilliseconds())
     } else {
-      yield put({ type: 'decrement-milliseconds' })
+      yield put(decrementMilliseconds())
     }
   }
 }
