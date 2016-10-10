@@ -7,10 +7,6 @@ const START_CLOCK = 'start-clock'
 const PAUSE_CLOCK = 'pause-clock'
 const REWIND_CLOCK = 'rewind-clock'
 
-export const startClock = () => ({ type: START_CLOCK })
-export const pauseClock = () => ({ type: PAUSE_CLOCK })
-export const rewindClock = () => ({ type: REWIND_CLOCK })
-
 export default function* rootSaga () {
   yield takeLatest([START_CLOCK, PAUSE_CLOCK, REWIND_CLOCK], handleClockAction)
 }
@@ -32,3 +28,7 @@ function* runClock (forward = true) {
     }
   }
 }
+
+export const startClock = () => ({ type: START_CLOCK })
+export const pauseClock = () => ({ type: PAUSE_CLOCK })
+export const rewindClock = () => ({ type: REWIND_CLOCK })

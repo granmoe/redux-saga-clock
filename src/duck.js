@@ -1,6 +1,10 @@
 import { MINIMUM_MS } from 'config'
 
-export const initialState = {
+const RESET_CLOCK = 'reset-clock'
+const INCREMENT_MILLISECONDS = 'increment-milliseconds'
+const DECREMENT_MILLISECONDS = 'decrement-milliseconds'
+
+const initialState = {
   milliseconds: 0
 }
 
@@ -27,10 +31,6 @@ export default function reducer (currentState = initialState, action) {
       return currentState
   }
 }
-
-const RESET_CLOCK = 'reset-clock'
-const INCREMENT_MILLISECONDS = 'increment-milliseconds'
-const DECREMENT_MILLISECONDS = 'decrement-milliseconds'
 
 export const resetClock = () => ({ type: RESET_CLOCK })
 export const incrementMilliseconds = () => ({ type: INCREMENT_MILLISECONDS })
