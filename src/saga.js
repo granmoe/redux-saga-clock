@@ -12,20 +12,24 @@ export default function* rootSaga () {
 }
 
 function* handleClockAction (action) {
-  if (action.type === START_CLOCK || action.type === REWIND_CLOCK) {
-    yield call(runClock, action.type === START_CLOCK)
+  if (action.type === START_CLOCK) {
+    yield call(runClockForwards)
+  } else if (action.type === REWIND_CLOCK) {
+    yield call(runClockBackwards)
   }
 }
 
-function* runClock (forward = true) {
+function* runClockForwards () {
   while (true) {
     yield call(delay, MINIMUM_MS)
+    yield put(incrementMilliseconds())
+  }
+}
 
-    if (forward) {
-      yield put(incrementMilliseconds())
-    } else {
-      yield put(decrementMilliseconds())
-    }
+function* runClockBackwards () {
+  while (true) {
+    yield call(delay, MINIMUM_MS)
+    yield put(decrementMilliseconds())
   }
 }
 
