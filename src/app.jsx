@@ -1,8 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { startClock, rewindClock, pauseClock } from 'saga'
-import { resetClock } from 'duck'
+import { startClock, rewindClock, pauseClock, resetClock } from 'duck'
 import { CLOCK_HANDS, STROKE_WIDTH } from 'config'
 
 class Clock extends React.Component {

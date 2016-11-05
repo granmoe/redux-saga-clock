@@ -1,6 +1,5 @@
 import { applyMiddleware, createStore } from 'redux'
-import rootReducer from 'duck'
-import rootSaga from 'saga'
+import rootReducer, { rootSaga } from 'duck'
 import createSagaMiddleware from 'redux-saga'
 
 export default function () {

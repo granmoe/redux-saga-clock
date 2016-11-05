@@ -1,8 +1,7 @@
-import { MINIMUM_MS } from 'config'
+import { delay, takeLatest } from 'redux-saga'
+import { call, put } from 'redux-saga/effects'
 
-const RESET_CLOCK = 'reset-clock'
-const INCREMENT_MILLISECONDS = 'increment-milliseconds'
-const DECREMENT_MILLISECONDS = 'decrement-milliseconds'
+import { MINIMUM_MS } from 'config'
 
 const initialState = {
   milliseconds: 0
@@ -10,17 +9,17 @@ const initialState = {
 
 export default function reducer (currentState = initialState, action) {
   switch (action.type) {
-    case RESET_CLOCK:
+    case 'reset-clock':
       return {
         ...currentState,
         milliseconds: 0
       }
-    case INCREMENT_MILLISECONDS:
+    case 'increment-milliseconds':
       return {
         ...currentState,
         milliseconds: currentState.milliseconds + MINIMUM_MS
       }
-    case DECREMENT_MILLISECONDS:
+    case 'decrement-milliseconds':
       if (!currentState.milliseconds) { return currentState }
 
       return {
@@ -32,6 +31,39 @@ export default function reducer (currentState = initialState, action) {
   }
 }
 
-export const resetClock = () => ({ type: RESET_CLOCK })
-export const incrementMilliseconds = () => ({ type: INCREMENT_MILLISECONDS })
-export const decrementMilliseconds = () => ({ type: DECREMENT_MILLISECONDS })
+// actions
+export const resetClock = () => ({ type: 'reset-clock' })
+export const incrementMilliseconds = () => ({ type: 'increment-milliseconds' })
+export const decrementMilliseconds = () => ({ type: 'decrement-milliseconds' })
+
+// saga actions
+export const startClock = () => ({ type: 'start-clock' })
+export const pauseClock = () => ({ type: 'pause-clock' })
+export const rewindClock = () => ({ type: 'rewind-clock' })
+
+// saga
+export function* rootSaga () {
+  yield takeLatest(['start-clock', 'pause-clock', 'rewind-clock'], handleClockAction)
+}
+
+function* handleClockAction (action) {
+  if (action.type === 'start-clock') {
+    yield call(runClockForwards)
+  } else if (action.type === 'rewind-clock') {
+    yield call(runClockBackwards)
+  }
+}
+
+function* runClockForwards () {
+  while (true) {
+    yield call(delay, MINIMUM_MS)
+    yield put(incrementMilliseconds())
+  }
+}
+
+function* runClockBackwards () {
+  while (true) {
+    yield call(delay, MINIMUM_MS)
+    yield put(decrementMilliseconds())
+  }
+}
