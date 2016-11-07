@@ -46,10 +46,10 @@ export function* rootSaga () {
   yield takeLatest(['start-clock', 'pause-clock', 'rewind-clock'], handleClockAction)
 }
 
-function* handleClockAction (action) {
-  if (action.type === 'start-clock') {
+function* handleClockAction ({ type }) {
+  if (type === 'start-clock') {
     yield call(runClockForwards)
-  } else if (action.type === 'rewind-clock') {
+  } else if (type === 'rewind-clock') {
     yield call(runClockBackwards)
   }
 }
