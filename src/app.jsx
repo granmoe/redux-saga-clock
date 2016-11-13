@@ -6,7 +6,13 @@ import { CLOCK_HANDS, STROKE_WIDTH } from 'config'
 
 class Clock extends React.Component {
   render () {
-    const { hands, startClock, rewindClock, resetClock, pauseClock } = this.props
+    const {
+      hands,
+      startClock,
+      rewindClock,
+      resetClock,
+      pauseClock
+    } = this.props
 
     return (
       <svg onMouseEnter={ startClock } onMouseLeave={ rewindClock } onDoubleClick={ resetClock }
